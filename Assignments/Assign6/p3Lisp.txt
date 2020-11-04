@@ -1,0 +1,20 @@
+;;; Waiting for variable to be passed. We increment (+)
+;;; then assign a value. We will see that value to set. 
+;;;
+(defmacro += (numVar plusVal)
+    (list `setf numVar (list `+ numVar plusVal) )
+)
+
+;;; Function is passed a controlled variable which is used to count from begin
+;;; expression and ends using end expression. We utilize Macro with T. Iterating
+;;; through function will see value being/end expression. 
+;;;
+(defmacro iterate (controlVar beginVal endValExp incExp &rest others)
+    (let((incVal(gensym))(endVal(gensym)))
+                `(do  ((,incVal ,incExp)(,endVal ,endValExp)(,controlVar ,beginVal(+= ,controlVar ,incVal))
+                      )
+                 ((> ,controlVar ,endVal) T)
+                 ,@ others
+            )
+    )
+)

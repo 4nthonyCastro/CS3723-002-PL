@@ -1,0 +1,149 @@
+fox03{fje987}17: clisp
+  i i i i i i i       ooooo    o        ooooooo   ooooo   ooooo
+  I I I I I I I      8     8   8           8     8     o  8    8
+  I  \ `+' /  I      8         8           8     8        8    8
+   \  `-+-'  /       8         8           8      ooooo   8oooo
+    `-__|__-'        8         8           8           8  8
+        |            8     o   8           8     o     8  8
+  ------+------       ooooo    8oooooo  ooo8ooo   ooooo   8
+
+Welcome to GNU CLISP 2.49 (2010-07-07) <http://clisp.cons.org/>
+
+Copyright (c) Bruno Haible, Michael Stoll 1992, 1993
+Copyright (c) Bruno Haible, Marcus Daniels 1994-1997
+Copyright (c) Bruno Haible, Pierpaolo Bernardi, Sam Steingold 1998
+Copyright (c) Bruno Haible, Sam Steingold 1999-2000
+Copyright (c) Sam Steingold, Bruno Haible 2001-2010
+
+Type :h and hit Enter for context help.
+
+[1]> (load "p3Lisp.txt" :echo T :print T)
+;; Loading file p3Lisp.txt ...
+;;; Waiting for variable to be passed. We increment (+)
+;;; then assign a value. We will see that value to set. 
+;;;
+(defmacro += (numVar plusVal)
+    (list `setf numVar (list `+ numVar plusVal) )
+)
++=
+
+
+;;; Function is passed a controlled variable which is used to count from begin
+;;; expression and ends using end expression. We utilize Macro with T. Iterating
+;;; through function will see value being/end expression. 
+;;;
+(defmacro iterate (controlVar beginVal endValExp incExp &rest others)
+    (let((incVal(gensym))(endVal(gensym)))
+                `(do  ((,incVal ,incExp)(,endVal ,endValExp)(,controlVar ,beginVal(+= ,controlVar ,incVal))
+                      )
+                 ((> ,controlVar ,endVal) T)
+                 ,@ others
+            )
+    )
+)
+ITERATE
+
+;; Loaded file p3Lisp.txt
+T
+[2]> (load "p3LispRun.txt" :echo T :print T)
+;; Loading file p3LispRun.txt ...
+;;; p3LispRun.txt begins ...
+;; test +=
+(setf x 10 y 5)
+5
+
+(+= x 5)
+15
+
+(print x)
+15 
+15
+
+(+= y x)
+20
+
+(print y)
+20 
+20
+
+
+
+;; iterate
+(iterate i 1 5 1
+     (print (list 'one i) )
+)
+(ONE 1) 
+(ONE 2) 
+(ONE 3) 
+(ONE 4) 
+(ONE 5) 
+T
+
+
+(setf n 5)
+5
+
+  
+(iterate i 1 n 1
+     (print (list 'two i n))
+     (+=  i 1)
+)
+(TWO 1 5) 
+(TWO 3 5) 
+(TWO 5 5) 
+T
+
+
+(setf n 5)
+5
+
+
+(iterate i 1 n 1
+     (print (list 'three i n))
+     (+= n 1)
+)
+(THREE 1 5) 
+(THREE 2 6) 
+(THREE 3 7) 
+(THREE 4 8) 
+(THREE 5 9) 
+T
+
+
+(setf n 5)
+5
+
+(setf inc 2)
+2
+
+
+(iterate i 1 n inc
+     (print (list 'three i n inc))
+     (+= inc 1)
+)
+(THREE 1 5 2) 
+(THREE 3 5 3) 
+(THREE 5 5 4) 
+T
+
+
+(setf n 5)
+5
+
+(setf inc 2)
+2
+
+(iterate i 1 (+ n 2) inc
+     (print (list 'four i n inc))
+     (+= n 1)
+     (+= i 1)
+     (+= inc 1)
+)
+(FOUR 1 5 2) 
+(FOUR 4 6 3) 
+(FOUR 7 7 4) 
+T
+
+;; Loaded file p3LispRun.txt
+T
+[3]> 
