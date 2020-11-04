@@ -1,0 +1,7 @@
+Question 1: Anthony Castro (myself), Gene Tigner (Lot of Help) a big help when it came to allocating memory for PCB also provided pseduo code which helped me so much. Sarah Richmond (I helped) with making Makefile and how to transfer files from Fox Servers onto PC.  
+
+Question 2: Yes I believe so.
+
+Question 3: I believe everything works fine.
+
+Question 4: Not easy at all wish I had started earlier rather than pulling my hair on this one. 

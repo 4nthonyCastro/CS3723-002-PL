@@ -1,0 +1,71 @@
+;;; removeNILTop
+;;; 	Parameters: 
+;;;		L
+;;; 	Purpose:
+;;;		We are passed a list which removes NIL at the top level. If 
+;;;		If initial value is not null apply cons to the initial value
+;;;		in list with the call from cdr applied to the list. We then 
+;;;		recursive call on the cdr of our list. If list is found null 
+;;;		we will return NIL.   
+(defun removeNILTop (L)
+    (cond ((null L) nil )
+        ((not (null (car L))) (cons (car L) (removeNILTop (cdr L))) )
+        (T (removeNILTop (cdr L)))
+    )
+)
+
+;;; removeNILMost
+;;; 	Parameters: 
+;;;		L
+;;; 	Purpose:
+;;;		We are passed a list which will remove NIL at all levels. If 
+;;;		If initial value is null we will return what we cdr on list. We then 
+;;;		recursive call on the cdr of our list. If list is found null 
+;;;		we will return NIL.   
+(defun removeNILMost (L)
+    (cond ((null L) nil)
+        ((null (car L) ) (removeNILMost (cdr L)))
+        ((listp (car L)) (cons (removeNILMost (car L)) (removeNILMost (cdr L)) ) )
+        (T (cons (car l) (removeNILMost (cdr L)) ) )
+    )
+)
+
+;;; reverseTop
+;;; 	Parameters: 
+;;;		L
+;;; 	Purpose:
+;;;		We are passed a list which returns a reversed list at the top level.
+;;;		We will retunr a new list by resursively calling cdr on the list then 
+;;;		returning recursive call on the car of our list. 
+;;;		If list is found null we will return NIL.   
+(defun reverseTop (L)
+    (cond ((null L) nil )
+        (T (append (reverseTop (cdr L)) (list (car L)) ) ) 
+    )
+)
+
+;;; reverseAll
+;;; 	Parameters: 
+;;;		L
+;;; 	Purpose:
+;;;		We are passed a list which returns a reversed list at the all levels.
+;;;		Checks if list is found to be an atom return the list. We will return a 
+;;;		new list by resursively calling cdr on the list then returning the recursively
+;;;		called car of our list. If list is found null we will return NIL.  
+(defun reverseAll (L)
+    (cond ((atom L) L)
+        (T (append (reverseAll (cdr L)) (list (reverseAll (car L))) ) )
+    )
+)
+
+;;; palindrome
+;;; 	Parameters: 
+;;;		L
+;;; 	Purpose:
+;;;		Passed a list to see if it is a palindrome. Reads reversed list and original 
+;;;		list then checks if equal. If list is found null we will return NIL.   
+(defun palindrome (L)
+    (cond ((null L) nil)
+        (T (equal L (reverseTop L)) )
+    )
+)

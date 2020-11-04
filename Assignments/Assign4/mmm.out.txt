@@ -1,0 +1,8 @@
+Min=100 Max=199 Mean=149.50
+Min=100 Max=199 Mean=149.50
+Min=100 Max=199 Mean=149.50
+Min=100 Max=199 Mean=149.50
+Min=100 Max=199 Mean=149.50
+Min=100 Max=199 Mean=149.50
+Min=100 Max=199 Mean=149.50
+

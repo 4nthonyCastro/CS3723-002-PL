@@ -1,0 +1,49 @@
+fox03{fje987}1: ls active CastroAnthony.zip Desktop Downloads Library Music Pictures Public Templates Videos bin courses Documents etc Mail News Practise src tmp working fox03{fje987}2: cd courses fox03{fje987}3: ls active cs cs3423 cs3723 cs3733 massign practise fox03{fje987}4: cd cs3723 fox03{fje987}5: ls assignments class-work fox03{fje987}6: cd assignments fox03{fje987}7: ls assign2 assign3 assign4 assign5 fox03{fje987}8: cd assign5 fox03{fje987}9: ls p2LispExtraRun.txt p2LispRun.txt p2Lisp.txt fox03{fje987}10: clisp 
+iiiiiii ooooo o ooooooo ooooo ooooo IIIIIII888 88o88 I\`+'/I8 8 88 88 
+8 
+8 ooooo 8oooo 8 8 8 
+Welcome to GNU CLISP 2.49 (2010-07-07) <http://clisp.cons.org/> 
+Copyright (c) Bruno Haible, Michael Stoll 1992, 1993 Copyright (c) Bruno Haible, Marcus Daniels 1994-1997 Copyright (c) Bruno Haible, Pierpaolo Bernardi, Sam Steingold 1998 Copyright (c) Bruno Haible, Sam Steingold 1999-2000 Copyright (c) Sam Steingold, Bruno Haible 2001-2010 
+Type :h and hit Enter for context help. 
+[1]> (load "p2Lisp.txt" :echo T :print T) ;; Loading file p2Lisp.txt ... 
+		;;;  removeNILTop  
+		;;;  Parameters:  
+		;;;  L  
+		;;;  Purpose:  
+		;;;  We are passed a list which removes NIL at the top level. If  
+		;;;  If initial value is not null apply cons to the initial value  
+		;;;  in list with the call from cdr applied to the list. We then  
+		;;;  recursive call on the cdr of our list. If list is found null  
+		;;;  we will return NIL. (defun removeNILTop (L)  (cond ((null L) nil ) ((not (null (car L))) (cons (car L) (removeNILTop (cdr L))) ) (T (removeNILTop (cdr L)))  ) )  REMOVENILTOP  
+\ `-+-' / 8 `-__|__-' 
+8 ------+------ ooooo 8oooooo ooo8ooo ooooo 8 
+8 |8o88o88 
+;;; ;;; ;;; ;;; ;;; ;;; ;;; ;;; (defun removeNILMost (L) 
+(cond ((null L) nil) ((null (car L) ) (removeNILMost (cdr L))) ((listp (car L)) (cons (removeNILMost (car L)) (removeNILMost (cdr L)) ) ) (T (cons (car l) (removeNILMost (cdr L)) ) ) 
+) ) 
+REMOVENILMOST 
+removeNILMost Parameters: 
+L Purpose: 
+reverseTop Parameters: 
+L Purpose: 
+We are passed a list which will remove NIL at all levels. If If initial value is null we will return what we cdr on list. We then recursive call on the cdr of our list. If list is found null we will return NIL. 
+;;; ;;; ;;; ;;; ;;; ;;; ;;; ;;; (defun reverseTop (L) 
+(cond ((null L) nil ) (T (append (reverseTop (cdr L)) (list (car L)) ) ) 
+) ) 
+REVERSETOP 
+We are passed a list which returns a reversed list at the top level. We will retunr a new list by resursively calling cdr on the list then returning recursive call on the car of our list. If list is found null we will return NIL. 
+;;; ;;; ;;; ;;; ;;; ;;; ;;; ;;; (defun reverseAll (L) 
+(cond ((atom L) L) (T (append (reverseAll (cdr L)) (list (reverseAll (car L))) ) ) 
+) ) 
+REVERSEALL 
+;;; palindrome ;;; Parameters: ;;; L ;;; Purpose: 
+reverseAll Parameters: 
+L Purpose: 
+We are passed a list which returns a reversed list at the all levels. We will return a new list by resursively calling cdr on the list then returning the recursively called car of our list. If list is found null we will return NIL. 
+		;;;  Passed a list to see if it is a palindrome. Reads reversed list and original  
+		;;;  list then checks if equal. If list is found null we will return NIL. (defun palindrome (L)  (cond ((null L) nil) (T (equal L (reverseTop L)) )  ) )  PALINDROME ;; Loaded file p2Lisp.txt T [2]> (load "p2LispRun.txt" :echo T :print T) ;; Loading file p2LispRun.txt ... ;;; LISP Program #2 p2LispRun.txt  ;;; #1 removeNILTop  (removeNILTop '(NIL X NIL NIL Y NIL Z)) (X Y Z)  (removeNILTop '(X NIL Y NIL Z NIL)) (X Y Z)  (removeNILTop '(NIL (X NIL Y) (NIL NIL))) ((X NIL Y) (NIL NIL))  ;;; #2 removeNILMost  (removeNILMost '(NIL X NIL NIL Y NIL Z)) (X Y Z)  (removeNILMost '(X NIL (Y NIL Z) NIL)) (X (Y Z))  (removeNILMost '(NIL (NIL) (X NIL Y) (NIL NIL) Z)) (NIL (X Y) NIL Z)  (removeNILMost '(NIL ( (((((NIL) NIL))))))) ((((((NIL))))))  ;;; #3 reverseTop  (reverseTop '(X Y Z)) (Z Y X)  (reverseTop '(X (Y Z (A)) (W))) ((W) (Y Z (A)) X)  ;;; #4 reverseALL  (reverseAll '(X Y Z)) (Z Y X)  
+(reverseAll '(X (Y Z (A)) (W))) ((W) ((A) Z Y) X) 
+;;; #5 palindrome 
+(palindrome '(R A C E C A R)) T 
+(palindrome '(W A S I T A C A R O R A C A T I S A W)) T 
+(palindrome '(N I X O N)) NIL ;; Loaded file p2LispRun.txt T [3]> 
